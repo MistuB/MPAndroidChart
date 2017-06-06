@@ -506,6 +506,7 @@ public class LegendRenderer extends Renderer {
             form = legend.getForm();
 
         mLegendFormPaint.setColor(entry.formColor);
+        mLegendFormPaint = setTexture(mLegendFormPaint, entry.useFormTexture);
 
         final float formSize = Utils.convertDpToPixel(
                 Float.isNaN(entry.formSize)
@@ -530,7 +531,7 @@ public class LegendRenderer extends Renderer {
 
             case SQUARE:
                 mLegendFormPaint.setStyle(Paint.Style.FILL);
-                c.drawRect(x, y - half, x + formSize, y + half, setTexture(mLegendFormPaint, entry.useFormTexture));
+                c.drawRect(x, y - half, x + formSize, y + half, mLegendFormPaint);
                 break;
 
             case LINE: {
