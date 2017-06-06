@@ -347,10 +347,6 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         }
     }
 
-    public void setLegendRenderer(LegendRenderer mLegendRenderer) {
-        mLegendRenderer = this.mLegendRenderer;
-    }
-
     /**
      * Lets the chart know its underlying data has changed and performs all
      * necessary recalculations. It is crucial that this method is called

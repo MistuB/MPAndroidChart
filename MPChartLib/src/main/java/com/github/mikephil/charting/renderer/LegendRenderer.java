@@ -1,11 +1,16 @@
 
 package com.github.mikephil.charting.renderer;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
 import android.graphics.Canvas;
+import android.graphics.ColorFilter;
 import android.graphics.DashPathEffect;
+import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Path;
+import android.graphics.Shader;
 import android.graphics.Typeface;
 
 import com.github.mikephil.charting.components.Legend;
@@ -25,6 +30,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class LegendRenderer extends Renderer {
+
+    private Bitmap bitmap;
 
     /**
      * paint for the legend labels
@@ -52,6 +59,10 @@ public class LegendRenderer extends Renderer {
 
         mLegendFormPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mLegendFormPaint.setStyle(Paint.Style.FILL);
+    }
+
+    public void setTexture(Bitmap bitmap) {
+        this.bitmap = bitmap;
     }
 
     /**
@@ -519,11 +530,10 @@ public class LegendRenderer extends Renderer {
 
             case SQUARE:
                 mLegendFormPaint.setStyle(Paint.Style.FILL);
-                c.drawRect(x, y - half, x + formSize, y + half, mLegendFormPaint);
+                c.drawRect(x, y - half, x + formSize, y + half, setTexture(mLegendFormPaint, entry.useFormTexture));
                 break;
 
-            case LINE:
-            {
+            case LINE: {
                 final float formLineWidth = Utils.convertDpToPixel(
                         Float.isNaN(entry.formLineWidth)
                                 ? legend.getFormLineWidth()
@@ -540,10 +550,20 @@ public class LegendRenderer extends Renderer {
                 mLineFormPath.lineTo(x + formSize, y);
                 c.drawPath(mLineFormPath, mLegendFormPaint);
             }
-                break;
+            break;
         }
 
         c.restoreToCount(restoreCount);
+    }
+
+    private Paint setTexture(Paint paint, boolean setShader) {
+        BitmapShader fillBMPshader = new BitmapShader(bitmap, Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
+        paint.setShader(setShader ? fillBMPshader : null);
+
+        ColorFilter filter = new LightingColorFilter(paint.getColor(), 0);
+        paint.setColorFilter(setShader ? filter : null);
+
+        return paint;
     }
 
     /**
