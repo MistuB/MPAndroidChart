@@ -27,6 +27,10 @@ public class DefaultAxisValueFormatter implements IAxisValueFormatter
      * @param digits
      */
     public DefaultAxisValueFormatter(int digits) {
+        if( digits > 10){
+            digits = 0;
+        }
+
         this.digits = digits;
 
         StringBuffer b = new StringBuffer();
