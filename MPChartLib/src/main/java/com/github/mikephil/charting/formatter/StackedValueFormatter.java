@@ -44,7 +44,7 @@ public class StackedValueFormatter implements IValueFormatter {
             b.append("0");
         }
 
-        this.mFormat = new DecimalFormat("###,###,###,##0");
+        this.mFormat = new DecimalFormat("###,###,###,##0" + b);
     }
 
     @Override
