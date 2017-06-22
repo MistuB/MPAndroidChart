@@ -246,8 +246,9 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
 
                         BarEntry entry = dataSet.getEntryForIndex(j / 4);
                         float val = entry.getY();
+                        boolean shouldHideZeroValues = dataSet.shouldHideZeroValues();
 
-                        if (val == 0 && dataSet.shouldHideZeroValues()) {
+                        if (val == 0.0f && shouldHideZeroValues) {
                             continue;
                         }
 
