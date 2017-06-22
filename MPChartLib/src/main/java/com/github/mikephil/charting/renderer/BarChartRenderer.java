@@ -240,13 +240,12 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
                         if (!mViewPortHandler.isInBoundsRight(x))
                             break;
 
-                        if (!mViewPortHandler.isInBoundsY(buffer.buffer[j + 1])
-                                || !mViewPortHandler.isInBoundsLeft(x))
+                        if (!mViewPortHandler.isInBoundsY(buffer.buffer[j + 1]) || !mViewPortHandler.isInBoundsLeft(x))
                             continue;
 
                         BarEntry entry = dataSet.getEntryForIndex(j / 4);
                         float val = entry.getY();
-                        boolean shouldHideZeroValues = dataSet.shouldHideZeroValues();
+                        boolean shouldHideZeroValues = entry.getShouldHideZeroValue();
 
                         if (val == 0.0f && shouldHideZeroValues) {
                             continue;
