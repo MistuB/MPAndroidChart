@@ -7,15 +7,12 @@ import android.graphics.Typeface;
 
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.formatter.DefaultValueFormatter;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.Utils;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Inherited;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,6 +87,18 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
      * flag that indicates if the DataSet is visible or not
      */
     protected boolean mVisible = true;
+
+    protected boolean shouldHideZeroValues = false;
+
+    @Override
+    public boolean shouldHideZeroValues() {
+        return shouldHideZeroValues;
+    }
+
+    @Override
+    public void setShouldHideZeroValues(boolean shouldHideZeroValues) {
+        this.shouldHideZeroValues = shouldHideZeroValues;
+    }
 
     /**
      * Default constructor.
