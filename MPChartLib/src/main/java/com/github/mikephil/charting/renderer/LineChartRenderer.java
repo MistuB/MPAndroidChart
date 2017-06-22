@@ -384,10 +384,6 @@ public class LineChartRenderer extends LineRadarRenderer {
 
             if (e1 != null) {
 
-                if( e1.getY() == 0.0f && !dataSet.shouldHideZeroValues()){
-                    return;
-                }
-
                 int j = 0;
                 for (int x = mXBounds.min; x <= mXBounds.range + mXBounds.min; x++) {
 
@@ -395,6 +391,10 @@ public class LineChartRenderer extends LineRadarRenderer {
                     e2 = dataSet.getEntryForIndex(x);
 
                     if (e1 == null || e2 == null) continue;
+
+                    if (e1.getY() == 0.0f && e1.getShouldHideZeroValue() || e2.getY() == 0.0f && e2.getShouldHideZeroValue()) {
+                        continue;
+                    }
 
                     mLineBuffer[j++] = e1.getX();
                     mLineBuffer[j++] = e1.getY() * phaseY;
@@ -568,7 +568,7 @@ public class LineChartRenderer extends LineRadarRenderer {
 
                     Entry entry = dataSet.getEntryForIndex(j / 2 + mXBounds.min);
 
-                    if (entry.getY() == 0 && dataSet.shouldHideZeroValues()) {
+                    if (entry.getY() == 0 && entry.getShouldHideZeroValue()) {
                         continue;
                     }
 
