@@ -384,6 +384,10 @@ public class LineChartRenderer extends LineRadarRenderer {
 
             if (e1 != null) {
 
+                if( e1.getY() == 0.0f && !dataSet.shouldHideZeroValues()){
+                    return;
+                }
+
                 int j = 0;
                 for (int x = mXBounds.min; x <= mXBounds.range + mXBounds.min; x++) {
 
@@ -564,6 +568,10 @@ public class LineChartRenderer extends LineRadarRenderer {
 
                     Entry entry = dataSet.getEntryForIndex(j / 2 + mXBounds.min);
 
+                    if (entry.getY() == 0 && dataSet.shouldHideZeroValues()) {
+                        continue;
+                    }
+
                     if (dataSet.isDrawValuesEnabled()) {
                         drawValue(c, dataSet.getValueFormatter(), entry.getY(), entry, i, x,
                                 y - valOffset, dataSet.getValueTextColor(j / 2));
@@ -576,8 +584,8 @@ public class LineChartRenderer extends LineRadarRenderer {
                         Utils.drawImage(
                                 c,
                                 icon,
-                                (int)(x + iconsOffset.x),
-                                (int)(y + iconsOffset.y),
+                                (int) (x + iconsOffset.x),
+                                (int) (y + iconsOffset.y),
                                 icon.getIntrinsicWidth(),
                                 icon.getIntrinsicHeight());
                     }
