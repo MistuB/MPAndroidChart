@@ -106,6 +106,12 @@ public class YAxis extends AxisBase {
         this.mYOffset = 0f;
     }
 
+    /**
+     * height of the x-axis title in pixels - this is automatically
+     * calculated by the getRequiredWidthSpace() method
+     */
+    public int mTitleHeight = 1;
+
     public YAxis(AxisDependency position) {
         super();
         this.mAxisDependency = position;
@@ -315,6 +321,11 @@ public class YAxis extends AxisBase {
 
         String label = getLongestLabel();
         float width = (float) Utils.calcTextWidth(p, label) + getXOffset() * 2f;
+
+        if (!this.getTitle().isEmpty()) {
+            this.mTitleHeight = Utils.calcTextHeight(p, "Q");
+            width += mTitleHeight + getXOffset();
+        }
 
         float minWidth = getMinWidth();
         float maxWidth = getMaxWidth();

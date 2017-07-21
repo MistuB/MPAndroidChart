@@ -208,8 +208,11 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
             mXAxisRenderer.computeAxis(mXAxis.mAxisMinimum, mXAxis.mAxisMaximum, false);
 
         mXAxisRenderer.renderAxisLine(canvas);
+        mXAxisRenderer.renderAxisTitle(canvas);
         mAxisRendererLeft.renderAxisLine(canvas);
+        mAxisRendererLeft.renderAxisTitle(canvas);
         mAxisRendererRight.renderAxisLine(canvas);
+        mAxisRendererRight.renderAxisTitle(canvas);
 
         mXAxisRenderer.renderGridLines(canvas);
         mAxisRendererLeft.renderGridLines(canvas);
@@ -493,6 +496,11 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
                     offsetBottom += xlabelheight;
                     offsetTop += xlabelheight;
                 }
+            }
+
+            if (mXAxis.isEnabled() && !mXAxis.getTitle().isEmpty()) {
+                float xTitleHeight = mXAxis.mTitleHeight + mXAxis.getYOffset();
+                offsetBottom += xTitleHeight;
             }
 
             offsetTop += getExtraTopOffset();
@@ -1186,7 +1194,7 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
 
     /**
      * When enabled, the values will be clipped to contentRect,
-     *   otherwise they can bleed outside the content rect.
+     * otherwise they can bleed outside the content rect.
      *
      * @param enabled
      */
@@ -1196,7 +1204,7 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
 
     /**
      * When enabled, the values will be clipped to contentRect,
-     *   otherwise they can bleed outside the content rect.
+     * otherwise they can bleed outside the content rect.
      *
      * @return
      */
